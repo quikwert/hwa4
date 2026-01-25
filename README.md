@@ -59,7 +59,7 @@ java -cp "bin:lib/*" org.junit.runner.JUnitCore LfractionTest
 
 ## 📋 Task Description
 
-Write an implementation (class Lfraction) for an abstract data type "fraction as a pair of long integers", where the fraction consists of two long integers: numerator and denominator. Always convert fractions to a form, where denominator is strictly positive and the fraction is reduced. By default all operations (described on the webpage http://www.itcollege.ee/~japoia/algoritmid/Lfraction/index.html) must be exact and use integer arithmetics only (do not use floating point arithmetics to compare two fractions).
+Write an implementation (class Lfraction) for an abstract data type "fraction as a pair of long integers", where the fraction consists of two long integers: numerator and denominator. Always convert fractions to a form, where denominator is strictly positive and the fraction is reduced. By default all operations (described on the webpage https://enos.itcollege.ee/~japoia/algoritmid/Lfraction/index.html) must be exact and use integer arithmetics only (do not use floating point arithmetics to compare two fractions).
 
 Remark 1. In addition to the public methods listed, you may need a static method to find the greatest common divisor of two integers to reduce the fractions. It is reasonable to use Euclid algortithm here.
 
