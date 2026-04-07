@@ -110,6 +110,7 @@ public class Lfraction implements Comparable<Lfraction> {
 	 * @return inverse of this fraction: 1/this
 	 */
 	public Lfraction inverse() {
+		if(numerator == 0) throw new RuntimeException("Cannot divide by zero");
 		return new Lfraction(denominator, numerator);
 	}
 
@@ -225,7 +226,7 @@ public class Lfraction implements Comparable<Lfraction> {
 
 		String[] parts = s.split("/", -1);
 		if (parts.length != 2) {
-			throw new IllegalArgumentException("Invalid fraction format. Expected 'numerator / denominator'");
+			throw new IllegalArgumentException("Invalid fraction format. Expected 'numerator / denominator'. In " + s);
 		}
 
 		try {
@@ -233,7 +234,7 @@ public class Lfraction implements Comparable<Lfraction> {
 			long denominator = Long.parseLong(parts[1].trim());
 			return new Lfraction(numerator, denominator);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException("Numerator or denominator is not a valid long integer", e);
+			throw new IllegalArgumentException("Numerator or denominator is not a valid long integer. In " + s , e);
 		}
 	}
 
