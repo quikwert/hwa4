@@ -343,6 +343,49 @@ public class LfractionTest {
       assertFalse ("hashCode does not depend on numerator", h1 == h2);
       assertFalse ("hashCode does not depend on denominator", h1 == h3);
    }
+   @Test (timeout=1000)
+   public void testPowTwo() {
+      Lfraction f = new Lfraction (2, 3);
+      assertEquals ("Wrong power: <2/3>^2", new Lfraction (4, 9), f.pow(2));
+   }
+
+   @Test (timeout=1000)
+   public void testPowThree() {
+      Lfraction f = new Lfraction (2, 3);
+      assertEquals ("Wrong power: <2/3>^3", new Lfraction (8, 27), f.pow(3));
+   }
+
+   @Test (timeout=1000)
+   public void testPowMinusOne() {
+      Lfraction f = new Lfraction (2, 3);
+      assertEquals ("Wrong power: <2/3>^-1", new Lfraction (3, 2), f.pow(-1));
+   }
+
+   @Test (timeout=1000)
+   public void testPowMinusTwo() {
+      Lfraction f = new Lfraction (2, 3);
+      assertEquals ("Wrong power: <2/3>^-2", new Lfraction (9, 4), f.pow(-2));
+   }
+
+   @Test (expected=RuntimeException.class)
+   public void testPowInverseOfZero() {
+      Lfraction f = new Lfraction (0, 1);
+      f.pow(-1);
+   }
+
+   @Test (timeout=1000)
+   public void testPowZero() {
+      Lfraction f = new Lfraction (5, 7);
+      assertEquals ("pow(0) must be 1/1", new Lfraction (1, 1), f.pow(0));
+   }
+
+   @Test (timeout=1000)
+   public void testPowOne() {
+      Lfraction f = new Lfraction (3, 4);
+      Lfraction p = f.pow(1);
+      assertEquals ("pow(1) must be equal to the original fraction", f, p);
+      assertNotSame ("pow(1) must return a new object", f, p);
+   }
 
 }
 

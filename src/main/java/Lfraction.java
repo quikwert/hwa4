@@ -7,9 +7,12 @@ public class Lfraction implements Comparable<Lfraction> {
 
 	/** Main method. Different tests. */
 	public static void main (String[] param) {
-		Lfraction f2 = new Lfraction (13, 16);
-		Lfraction f3 = Lfraction.valueOf("1/2/");
-		System.out.println(f3);
+		Lfraction f1 = new Lfraction (13, 16);
+		System.out.println(f1.pow(0));
+		System.out.println(f1.pow(1));
+		System.out.println(f1.pow(-1));
+		System.out.println(f1.pow(3));
+		System.out.println(f1.pow(-4));
 	}
 
 	private long numerator;
@@ -70,11 +73,11 @@ public class Lfraction implements Comparable<Lfraction> {
 		if(m == null) return false;
 		if(!(m instanceof Lfraction)) return false;
 		Lfraction other = (Lfraction)m;
-		return this.numerator == other.numerator && this.denominator == other.denominator;
+		return compareTo((Lfraction)m) == 0;
 
 	}
 
-	/** Hashcode has to be the same for equal fractions and in general, different
+/** Hashcode has to be the same for equal fractions and in general, different
 	 * for different fractions.
 	 * @return hashcode
 	 */
@@ -126,11 +129,16 @@ public class Lfraction implements Comparable<Lfraction> {
 	 * @return this-m
 	 */
 	public Lfraction minus (Lfraction m) {
-		if(m == null) throw new NullPointerException("Argument cannot be null!");
-		long gcd = gcd(this.denominator, m.denominator);
-		long mTerm = this.denominator / gcd;
-		long thisTerm =	m.denominator / gcd; 
-		return new Lfraction(this.numerator * thisTerm - m.numerator * mTerm, this.denominator * thisTerm);
+	//	if(m == null) throw new NullPointerException("Argument cannot be null!");
+	//	long gcd = gcd(this.denominator, m.denominator);
+	//	long mTerm = this.denominator / gcd;
+	//	long thisTerm =	m.denominator / gcd; 
+	//	return new Lfraction(this.numerator * thisTerm - m.numerator * mTerm, this.denominator * thisTerm);
+		if ( m == null ) {
+			throw new NullPointerException("Argument cannot be null");
+		}
+
+		return this.plus(m.opposite());
 
 	}
 
@@ -140,10 +148,23 @@ public class Lfraction implements Comparable<Lfraction> {
 	 */
 	public Lfraction divideBy (Lfraction m) {
 		if(m == null) throw new NullPointerException("Argument cannot be null!");
-		if(m.numerator == 0) throw new RuntimeException("Cannot divide by zero");
-		Lfraction ret = new Lfraction(this.numerator * m.denominator, this.denominator * m.numerator);  
-		ret.reduce();
-		return ret;
+//		if(m.numerator == 0) throw new RuntimeException("Cannot divide by zero");
+//		Lfraction ret = new Lfraction(this.numerator * m.denominator, this.denominator * m.numerator);  
+//		return ret;
+		return this.times(m.inverse());
+	}
+
+	public Lfraction pow (int power){
+		if(power == 0)return new Lfraction(1, 1);
+		else if(power == 1) {
+			try{
+				return (Lfraction)clone();
+			}catch(CloneNotSupportedException e){
+				throw new AssertionError();
+			}	
+		}
+		else if(power > 0) return this.times(this.pow(power-1));
+		else return this.times(this.pow(-power-1)).inverse();
 	}
 
 	/** Comparision of fractions.
